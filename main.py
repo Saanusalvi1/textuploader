@@ -299,4 +299,181 @@ async def account_login(bot: Client, m: Message):
                 elif 'unknown' in out:
                     ytf = out["unknown"]
                 else:
-                    fo
+                    for data3 in out:
+                        ytf = out[data3]
+            elif raw_text2 == "360":
+
+                cmd = f'yt-dlp -F "{url}"'
+                k = await helper.run(cmd)
+                out = helper.vid_info(str(k))
+                # print(out)
+                if '640x360' in out:
+                    ytf = out['640x360']
+                elif '638x360' in out:
+                    ytf = out['638x360']
+                elif '636x360' in out:
+                    ytf = out['636x360']
+                elif '768x432' in out:
+                    ytf = out['768x432']
+                elif '638x358' in out:
+                    ytf = out['638x358']
+                elif '852x316' in out:
+                    ytf = out['852x316']
+                elif '850x480' in out:
+                    ytf = out['850x480']
+                elif '848x480' in out:
+                    ytf = out['848x480']
+                elif '854x480' in out:
+                    ytf = out['854x480']
+                elif '852x480' in out:
+                    ytf = out['852x480']
+                elif '854x470' in out:
+                    ytf = out['852x470']
+                elif '1280x720' in out:
+                    ytf = out['1280x720']
+                elif 'unknown' in out:
+                    ytf = out["unknown"]
+                else:
+                    for data4 in out:
+                        ytf = out[data4]
+            elif raw_text2 == "480":
+
+                cmd = f'yt-dlp -F "{url}"'
+                k = await helper.run(cmd)
+                out = helper.vid_info(str(k))
+                # print(out)
+                if '854x480' in out:
+                    ytf = out['854x480']
+                elif '852x480' in out:
+                    ytf = out['852x480']
+                elif '854x470' in out:
+                    ytf = out['854x470']
+                elif '768x432' in out:
+                    ytf = out['768x432']
+                elif '848x480' in out:
+                    ytf = out['848x480']
+                elif '850x480' in out:
+                    ytf = ['850x480']
+                elif '960x540' in out:
+                    ytf = out['960x540']
+                elif '640x360' in out:
+                    ytf = out['640x360']
+                elif 'unknown' in out:
+                    ytf = out["unknown"]
+                else:
+                    for data5 in out:
+                        ytf = out[data5]
+
+            elif raw_text2 == "720":
+
+                cmd = f'yt-dlp -F "{url}"'
+                k = await helper.run(cmd)
+                out = helper.vid_info(str(k))
+                # print(out)
+                if '1280x720' in out:
+                    ytf = out['1280x720']
+                elif '1280x704' in out:
+                    ytf = out['1280x704']
+                elif '1280x474' in out:
+                    ytf = out['1280x474']
+                elif '1920x712' in out:
+                    ytf = out['1920x712']
+                elif '1920x1056' in out:
+                    ytf = out['1920x1056']
+                elif '854x480' in out:
+                    ytf = out['854x480']
+                elif '640x360' in out:
+                    ytf = out['640x360']
+                elif 'unknown' in out:
+                    ytf = out["unknown"]
+                else:
+                    for data6 in out:
+                        ytf = out[data6]
+            elif "player.vimeo" in url:
+                if raw_text2 == '144':
+                    ytf = 'http-240p'
+                elif raw_text2 == "240":
+                    ytf = 'http-240p'
+                elif raw_text2 == '360':
+                    ytf = 'http-360p'
+                elif raw_text2 == '480':
+                    ytf = 'http-540p'
+                elif raw_text2 == '720':
+                    ytf = 'http-720p'
+                else:
+                    ytf = 'http-360p'
+            else:
+                cmd = f'yt-dlp -F "{url}"'
+                k = await helper.run(cmd)
+                out = helper.vid_info(str(k))
+                for dataS in out:
+                    ytf = out[dataS]
+
+            try:
+                if "unknown" in out:
+                    res = "NA"
+                else:
+                    res = list(out.keys())[list(out.values()).index(ytf)]
+
+                name = f'{str(count).zfill(3)}) {name1} {res}'
+            except Exception:
+                res = "NA"
+
+            # if "youtu" in url:
+            # if ytf == f"'bestvideo[height<={raw_text2}][ext=mp4]+bestaudio[ext=m4a]'" or "acecwply" in url:
+            if "acecwply" in url:
+                cmd = f'yt-dlp -o "{name}.%(ext)s" -f "bestvideo[height<={raw_text2}]+bestaudio" --hls-prefer-ffmpeg --no-keep-video --remux-video mkv --no-warning "{url}"'
+            elif "youtu" in url:
+                cmd = f'yt-dlp -i -f "bestvideo[height<={raw_text2}]+bestaudio" --no-keep-video --remux-video mkv --no-warning "{url}" -o "{name}.%(ext)s"'
+            elif "player.vimeo" in url:
+                cmd = f'yt-dlp -f "{ytf}+bestaudio" --no-keep-video --remux-video mkv "{url}" -o "{name}.%(ext)s"'
+            elif "m3u8" or "livestream" in url:
+                cmd = f'yt-dlp -f "{ytf}" --no-keep-video --remux-video mkv "{url}" -o "{name}.%(ext)s"'
+            elif ytf == "0" or "unknown" in out:
+                cmd = f'yt-dlp -f "{ytf}" --no-keep-video --remux-video mkv "{url}" -o "{name}.%(ext)s"'
+            elif ".pdf" or "download" in url:
+                cmd = "pdf"
+            else:
+                cmd = f'yt-dlp -f "{ytf}+bestaudio" --hls-prefer-ffmpeg --no-keep-video --remux-video mkv "{url}" -o "{name}.%(ext)s"'
+
+            try:
+                Show = f"**Downloading:-**\n\n**Name :-** `{name}\nQuality - {raw_text2}`\n\n**Url :-** `{url}`"
+                prog = await m.reply_text(Show)
+                cc = f"**Name »** {name1} {res}.mkv\n**Batch »** {raw_text0}\n**Index »** {str(count).zfill(3)}"
+                cc1 = f"**Name »** ** {name1} {res}.pdf\n**Batch »** {raw_text0}\n**Index »** {str(count).zfill(3)}"
+                #                         await prog.delete (True)
+                #                 if cmd == "pdf" or "drive" in url:
+                #                     try:
+                #                         ka=await helper.download(url,name)
+                #                         await prog.delete (True)
+                #                         time.sleep(1)
+                #                         # await helper.send_doc(bot,m,cc,ka,cc1,prog,count,name)
+                #                         reply = await m.reply_text(f"Uploading - `{name}`")
+                #                         time.sleep(1)
+                #                         start_time = time.time()
+                #                         await m.reply_document(ka,caption=cc1)
+                #                         count+=1
+                #                         await reply.delete (True)
+                #                         time.sleep(1)
+                #                         os.remove(ka)
+                #                         time.sleep(3)
+                #                     except FloodWait as e:
+                #                         await m.reply_text(str(e))
+                #                         time.sleep(e.x)
+                #                         continue
+                if cmd == "pdf" or ".pdf" in url or ".pdf" in name:
+                    try:
+                        ka = await helper.aio(url, name)
+                        await prog.delete(True)
+                        time.sleep(1)
+                        reply = await m.reply_text(f"Uploading - ```{name}```")
+                        time.sleep(1)
+                        start_time = time.time()
+                        await m.reply_document(
+                            ka,
+                            caption=
+                            f"**Name »** {name1} {res}.pdf\n**Batch »** {raw_text0}\n**Index »** {str(count).zfill(3)}"
+                        )
+                        count += 1
+                        # time.sleep(1)
+                        await reply
