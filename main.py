@@ -37,9 +37,9 @@ import io
 
 bot = Client(
     "bot",
-    bot_token= "5758377234:AAH-xBcK8NTmWJOqbxqNwRDsVQtfX6RaYRg",
-    api_id= "24525445",
-    api_hash= "ec30d2a64a99aa17518c6506860dcf43"
+    bot_token= "5659489542:AAGFjU4zc6fAasB4x1arOOqqOWpTpTCUe5M",
+    api_id= "27005191",
+    api_hash= "25f3ca5a50a9eacee7c19441222d14c2"
 )
 
 logger = logging.getLogger()
