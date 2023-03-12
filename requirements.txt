@@ -9,4 +9,4 @@ aiofiles
 asyncio
 pycurl
 humanize
-git+https://github.com/usernein/pyromod.git
+
